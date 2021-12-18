@@ -22,6 +22,7 @@
 
 			let raycaster;
 
+			let textMesh
 			const intersected = [];
 			const tempMatrix = new THREE.Matrix4();
 
@@ -106,6 +107,18 @@
 					group.add( object );
 
 				}
+
+				textMesh = addText("joe bydan")
+				scene.add(textMesh)
+				textMesh.position.y = .3
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.shadowMap.enabled = true;
+				renderer.xr.enabled = true;
+				container.appendChild( renderer.domElement );
 
 				//
 
@@ -273,6 +286,49 @@
 				renderer.render( scene, camera );
 
 			}
+
+
+			function addText(text) {
+
+				const geometry = new THREE.BufferGeometry();
+				geometry.setAttribute('position', new THREE.Float32BufferAttribute([], 3));
+
+				const meshMaterial = new THREE.MeshPhongMaterial({
+					color: 0x156289,
+					emissive: 0x072534,
+					side: THREE.DoubleSide,
+					flatShading: true
+				});
+
+				const textMesh = new THREE.Mesh(geometry, meshMaterial)
+				textMesh.position.z = -2
+				textMesh.position.x = 2
+				textMesh.position.y = .2
+				scene.add(textMesh)
+
+				const fontLoader = new THREE.FontLoader();
+				fontLoader.load('/fonts/Oooh Baby_Regular.json', function (font) {
+
+					const textGeometry = new THREE.TextGeometry('joe bydan', {
+						font: font,
+						size: .5,
+						height: .2,
+						curveSegments: 12,
+						bevelEnabled: false,
+						bevelThickness: 1,
+						bevelSize: .5,
+						bevelOffset: 0,
+						bevelSegments: 3
+					});
+					textGeometry.center();
+					textMesh.geometry.dispose()
+					textMesh.geometry = textGeometry
+				})
+
+				return textMesh
+			}
+
+
 
 		</script>
 	</body>
