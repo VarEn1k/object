@@ -80,7 +80,7 @@
 					new THREE.TorusGeometry( 0.2, 0.04, 64, 32 )
 				];
 
-				for ( let i = 0; i < 50; i ++ ) {
+				for ( let i = 0; i < 20; i ++ ) {
 
 					const geometry = geometries[ Math.floor( Math.random() * geometries.length ) ];
 					const material = new THREE.MeshStandardMaterial( {
@@ -112,13 +112,13 @@
 				scene.add(textMesh)
 				textMesh.position.y = .3
 
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.shadowMap.enabled = true;
-				renderer.xr.enabled = true;
-				container.appendChild( renderer.domElement );
+				//renderer = new THREE.WebGLRenderer( { antialias: true } );
+				//renderer.setPixelRatio( window.devicePixelRatio );
+				//renderer.setSize( window.innerWidth, window.innerHeight );
+				//renderer.outputEncoding = THREE.sRGBEncoding;
+				//renderer.shadowMap.enabled = true;
+				//renderer.xr.enabled = true;
+				//container.appendChild( renderer.domElement );
 
 				//
 
@@ -282,7 +282,10 @@
 
 				intersectObjects( controller1 );
 				intersectObjects( controller2 );
-
+				//textMesh.rotation.x += 0.05;
+			    //textMesh.rotation.z += 0.01;
+				textMesh.rotation.y += 0.05;
+				textMesh.position.y = 2 + 1 * Math.sin(Date.now() / 3 / 1000)
 				renderer.render( scene, camera );
 
 			}
